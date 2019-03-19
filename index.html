@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crystal Collectors!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Crystal Collectors!</h1><br>
+            <p class="lead">You will be given and random number at the start of the game. There are four crystals below.
+                By clicking on a crystal, you will add a specific amount of points to your total score.</p>
+            <p class="lead">You will win the game by matching your total score to the random number. You lose the game
+                if your total
+                score goes above the random number. </p>
+            <p class="lead">The value of each cystal is hidden from you until you click on it. Each time the game
+                starts, it will
+                change the values of each crystal.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">The number you're trying to reach is: <span id="number-to-guess"></span></h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-text">Wins: <div id="numberWins"></div>
+                    </h5>
+                    <h5 class="card-text">Losses: <div id="numberLosses"></div>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-light"><img
+            src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Jewelry-and-Diamonds-PNG/Red_Gem_PNG_Clip_Art_Image.png?m=1507172105"
+            width="93px"></button>
+
+    <button type="button" class="btn btn-light"><img
+            src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Jewelry-and-Diamonds-PNG/Purple_Gem_PNG_Clip_Art_Image.png?m=1507172105"
+            width="93px"></button>
+
+    <button type="button" class="btn btn-light"><img
+            src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Jewelry-and-Diamonds-PNG/Green_Gem_PNG_Clip_Art_Image.png?m=1507172105"
+            width="93px"></button>
+
+    <button type="button" class="btn btn-light"><img
+            src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Jewelry-and-Diamonds-PNG/Blue_Gem_PNG_Clip_Art_Image.png?m=1507172105"
+            width="93px"></button>
+
+    <div class="col-sm-12">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="userTotal card-text">Your total score is:
+                    <span id="finalTotal"></span>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var random = Math.floor(Math.random() * 101 + 19);
+        //selects a random number between 19-120
+        $("#number-to-guess").text(random);
+        //appending random to number-to-guess in html doc
+
+        var userTotal = 0;
+        var wins = 0;
+        $("#numberWins").text(wins);
+        var losses = 0;
+        $("#numberLosses").text(losses);
+
+        var array = [];
+        $(".btn ").each(function (i) {
+            array[i] = Math.floor(Math.random() * 11 + 1);
+        });
+        // selects a random number for the gems
+
+        //sets up click for gems
+        $(".btn ").on("click", function () {
+            userTotal = userTotal + array[$(".btn ").index(this)];
+            $("#finalTotal").text(userTotal);
+            //sets win/lose conditions
+            if (userTotal === random) {
+                alert("You won!");
+                wins++;
+                $("#numberWins").text(wins);
+                reset();
+            }
+            else if (userTotal > random) {
+                alert("You lose!");
+                losses++;
+                $("#numberLosses").text(losses);
+                reset()
+            }
+        });
+
+        function reset() {
+            Random = Math.floor(Math.random() * 101 + 19);
+            console.log(random)
+            $("#number-to-guess").text(random);
+            $(".btn ").each(function (i) {
+                array[i] = Math.floor(Math.random() * 11 + 1);
+            });
+            userTotal = 0;
+            $("#finalTotal").text(userTotal);
+        }
+        //resets the game
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
